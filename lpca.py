@@ -25,19 +25,6 @@ y_filter = np.where(y_train == 2)
 x_train=x_train[y_filter]
 l=len(np.array(y_filter).flatten())
 
-# cov=np.array(distance.cdist(x_train[:-1],x_train[:-1],'sqeuclidean'))
-# tot=np.square(l-1)
-# cov=cov.flatten()
-# vfunc=np.vectorize(func)
-# cov=vfunc(cov,l-1,0.001).reshape(l-1,l-1)
-# onen=np.full((l-1, l-1), 1./l-1)
-# cov=cov-2*np.matmul(onen,cov)+np.matmul(np.matmul(onen,cov),onen)
-
-# u,s,v=np.linalg.svd(cov, full_matrices=False)
-# u=np.array([u[i]*1./math.sqrt(s[i]*(l-1)) for i in range(l-1)])
-
-
-
 cov=np.cov(x_train[:-1],rowvar=False)
 print(x_train[:-1].shape)
 print(l)
@@ -46,10 +33,7 @@ arr1=arr1+500.* np.random.normal(loc=0.0, scale=0.1**0.5, size=arr1.shape)
 arr1=np.clip(arr1,0.,255.)
 
 u,s,v=np.linalg.svd(cov, full_matrices=False)
-# plt.figure()
-# plt.plot(range(784), s, 'bo', label='eig')
-# plt.show()
-# print(s.shape)
+
 u=u[:,:70]
 alpha=np.matmul(arr1,u)
 ans=np.matmul(u,np.transpose(alpha))
